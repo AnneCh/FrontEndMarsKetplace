@@ -10,8 +10,8 @@ export default function Home() {
         <meta name="description" content="NFT MarsKetplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>Own your plot on MARS</h1>
-      <h3>Here are the current NFT for sale</h3>
+      <h1 className="font-bold text-3xl">Own your plot on MARS</h1>
+      <h3>Here are the current NFTs for sale</h3>
     </div>
   )
 }

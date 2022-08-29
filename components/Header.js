@@ -5,15 +5,15 @@ export default function Header() {
   return (
     <nav className="p-5 border-b-2 flex flex-row justify-between items-center">
       <h1 className="py-4 px-4 font-bold text-3xl">NFT Marketplace</h1>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center space-between">
         <Link href="/">
-          <a>MarsKetplace</a>
+          <a className="mr-4 p-6">Home</a>
         </Link>
         <Link href="/about">
-          <a>About</a>
+          <a className="mr-4 p-6">About</a>
         </Link>
         <Link href="/futures">
-          <a>Futures</a>
+          <a className="mr-4 p-6">Futures</a>
         </Link>
         <ConnectButton moralisAuth={false} />
       </div>
