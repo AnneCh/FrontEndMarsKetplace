@@ -1,11 +1,15 @@
 1. Home Page
-   1. Show all listed NFTs
-   2. Show them active if they are for sale, greyed out and inactive if sold(archived?)
-   3. Allow an EOA to buy an NFT (only one per address)
+
+   1. If connected with owner's address:
+      1. Show all listed NFTs
+      2. Show them active if they are for sale, greyed out and inactive if sold(archived?)
+      3. Sell Button
+   2. If connected with EOA:
+      1. Show all listed NFTs for sale
+
 2. About
    1. What is the project about, who built it
 3. Futures
-
    1. upgrades to be made to the project
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
