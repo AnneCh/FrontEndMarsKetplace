@@ -21,6 +21,7 @@
     "web3uikit": "^0.1.159"
   },
   "devDependencies": {
+    "dotenv": "^16.0.2",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5"
   }
