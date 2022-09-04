@@ -21,7 +21,7 @@ function Home(props) {
 
 export async function getServerSideProps(context) {
   // reads the api key from .env.local and starts Moralis SDK
-  await Moralis.start({ apiKey: process.env.NEXT_MORALIS_API_KEY })
+  await Moralis.start({ apiKey: process.env.MORALIS_API_KEY })
 
   //const address = "0x..."
 
