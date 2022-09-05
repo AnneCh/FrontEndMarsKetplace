@@ -12,7 +12,7 @@ let moralisChainId = chainId == "31337?" ? "1337" : chainId
 const contractAddress = contractAddresses[chainId]["MarsKetplace"][0]
 const serverUrl = process.env.NEXT_PUBLIC_SERVERURL
 const appId = process.env.NEXT_PUBLIC_APPID
-const masterKey = process.env.MORALIS_API_KEY
+const masterKey = process.env.MORALIS_MASTER_KEY
 
 async function main() {
   await Moralis.start({ serverUrl, appId, masterKey })
