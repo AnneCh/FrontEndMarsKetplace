@@ -1,11 +1,11 @@
 //script that will ask moralis server to listen to specific events
 // need to create a specific script in our back-end that will trigger this script
 
-const Moralis = require("moralis/node")
+const Moralis = require("moralis-v1/node")
 require("dotenv").config()
 
 const contractAddresses = require("./constants/networkMappings.json")
-let chainId = process.env.chainId || 31337
+let chainId = process.env.chainId || "31337"
 //moralis understands that localchainid is 1337, so there's a need to convert it
 let moralisChainId = chainId == "31337?" ? "1337" : chainId
 
@@ -132,7 +132,7 @@ async function main() {
   const DeletedResponse = await Moralis.Cloud.run("watchContractEvent", NFTDeletedOptions, {
     useMasterKey: true,
   })
-
+  console.log("working on it...")
   if (ListedResponse.success && BoughtResponse.success && DeletedResponse.success) {
     console.log("Database successfully updated with watching events!")
   } else {
