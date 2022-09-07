@@ -122,7 +122,6 @@ async function main() {
     tableName: "NFT Deleted",
     address: contractAddress,
   }
-
   const ListedResponse = await Moralis.Cloud.run("watchContractEvent", NFTListedOptions, {
     useMasterKey: true,
   })
