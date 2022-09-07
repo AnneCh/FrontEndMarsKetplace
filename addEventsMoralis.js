@@ -8,8 +8,9 @@ const contractAddresses = require("./constants/networkMappings.json")
 let chainId = process.env.chainId || "31337"
 //moralis understands that localchainid is 1337, so there's a need to convert it
 let moralisChainId = chainId == "31337?" ? "1337" : chainId
+const contractAddressesArray = contractAddresses[chainId]["MarsKetplace"]
+const contractAddress = contractAddressesArray[contractAddressesArray.length - 1]
 
-const contractAddress = contractAddresses[chainId]["MarsKetplace"][0]
 const serverUrl = process.env.NEXT_PUBLIC_SERVERURL
 const appId = process.env.NEXT_PUBLIC_APPID
 const masterKey = process.env.MORALIS_MASTER_KEY
@@ -53,7 +54,7 @@ async function main() {
       name: "NFTListed",
       type: "event",
     },
-    tableName: "NFT Listed",
+    tableName: "NFTListed",
     address: contractAddress,
   }
 
@@ -92,7 +93,7 @@ async function main() {
       name: "NFTBought",
       type: "event",
     },
-    tableName: "NFT Bought",
+    tableName: "NFTBought",
     address: contractAddress,
   }
 
@@ -119,20 +120,24 @@ async function main() {
       name: "NFTDeleted",
       type: "event",
     },
-    tableName: "NFT Deleted",
+    tableName: "NFTDeleted",
     address: contractAddress,
   }
-  const ListedResponse = await Moralis.Cloud.run("watchContractEvent", NFTListedOptions, {
+  const listedResponse = await Moralis.Cloud.run("watchContractEvent", NFTListedOptions, {
     useMasterKey: true,
   })
-  const BoughtResponse = await Moralis.Cloud.run("watchContractEvent", NFTBoughtOptions, {
+  console.log(listedResponse)
+  const boughtResponse = await Moralis.Cloud.run("watchContractEvent", NFTBoughtOptions, {
     useMasterKey: true,
   })
-  const DeletedResponse = await Moralis.Cloud.run("watchContractEvent", NFTDeletedOptions, {
+  console.log(boughtResponse)
+  const deletedResponse = await Moralis.Cloud.run("watchContractEvent", NFTDeletedOptions, {
     useMasterKey: true,
   })
-  console.log("working on it...")
-  if (ListedResponse.success && BoughtResponse.success && DeletedResponse.success) {
+  console.log(deletedResponse)
+
+  console.log("Working on it...")
+  if (listedResponse.success && boughtResponse.success && deletedResponse.success) {
     console.log("Database successfully updated with watching events!")
   } else {
     console.log("Something went wrong...")
