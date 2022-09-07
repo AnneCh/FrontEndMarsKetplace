@@ -13,7 +13,7 @@ const contractAddress = contractAddressesArray[contractAddressesArray.length - 1
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVERURL
 const appId = process.env.NEXT_PUBLIC_APPID
-const masterKey = process.env.MORALIS_MASTER_KEY
+const masterKey = process.env.moralisMasterKey
 
 async function main() {
   await Moralis.start({ serverUrl, appId, masterKey })
@@ -21,6 +21,7 @@ async function main() {
 
   let NFTListedOptions = {
     chainId: moralisChainId,
+    address: contractAddress,
     sync_historical: true,
     topic: "NFTListed(address,address,uint256,uint256)",
     abi: {
@@ -55,11 +56,11 @@ async function main() {
       type: "event",
     },
     tableName: "NFTListed",
-    address: contractAddress,
   }
 
   let NFTBoughtOptions = {
     chainId: moralisChainId,
+    address: contractAddress,
     sync_historical: true,
     topic: "NFTBought(address,address,uint256,uint256)",
     abi: {
@@ -94,11 +95,11 @@ async function main() {
       type: "event",
     },
     tableName: "NFTBought",
-    address: contractAddress,
   }
 
   let NFTDeletedOptions = {
     chainId: moralisChainId,
+    address: contractAddress,
     sync_historical: true,
     topic: "NFTDeleted(address,uint256)",
     abi: {
@@ -121,7 +122,6 @@ async function main() {
       type: "event",
     },
     tableName: "NFTDeleted",
-    address: contractAddress,
   }
   const listedResponse = await Moralis.Cloud.run("watchContractEvent", NFTListedOptions, {
     useMasterKey: true,
