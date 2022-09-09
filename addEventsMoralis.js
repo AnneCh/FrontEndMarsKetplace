@@ -13,7 +13,7 @@ const contractAddress = contractAddressesArray[contractAddressesArray.length - 1
 
 const serverUrl = process.env.NEXT_PUBLIC_SERVERURL
 const appId = process.env.NEXT_PUBLIC_APPID
-const masterKey = process.env.moralisMasterKey
+const masterKey = process.env.MORALIS_MASTERKEY
 
 async function main() {
   await Moralis.start({ serverUrl, appId, masterKey })
@@ -140,7 +140,7 @@ async function main() {
   if (listedResponse.success && boughtResponse.success && deletedResponse.success) {
     console.log("Database successfully updated with watching events!")
   } else {
-    console.log("Something went wrong...")
+    console.log("Something went wrong... and I won't show you what.")
   }
 }
 
