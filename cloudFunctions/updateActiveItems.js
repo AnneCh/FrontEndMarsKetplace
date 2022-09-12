@@ -26,3 +26,35 @@ Moralis.Cloud.afterSave("NFTListed", async (request) => {
     await activeNFT.save()
   }
 })
+
+Moralis.Cloud.afterSave("NFTCanceled", async (request) => {
+  const confirmed = request.object.get("confirmed")
+  const logger = Moralis.Cloud.getLogger()
+  logger.info(`Marsketplace | Object: ${request.object}`)
+  if (confirmed) {
+    logger.info("NFT Canceled!")
+    //create a new table:
+    const ActiveNFT = Moralis.Object.extend("ActiveNFT")
+    const query = new Moralis.query(ActiveNFT)
+    query.equalTo("marsketplaceAddress", request.object.get("address"))
+    query.equalTo("nftAddress", request.object.get("nftAddress"))
+    query.equalTo("tokenId", request.object.get("tokenId"))
+    logger.info(`Marsketplace | Query: ${query}`)
+    const canceledNFT = await query.first()
+    logger.info(`Marsketplace | CanceledNFT: ${canceledNFT}`)
+    if (canceledNFT) {
+      await canceledNFT.destroy()
+      logger.info(
+        `Deleting ${request.object.get("tokenId")} at address ${request.object.get(
+          "address"
+        )} since it was canceled.`
+      )
+    } else {
+      logger.info(
+        `No NFT found at the address ${request.object.get(
+          "address"
+        )} and tokenID ${request.object.get("tokenId")}`
+      )
+    }
+  }
+})
