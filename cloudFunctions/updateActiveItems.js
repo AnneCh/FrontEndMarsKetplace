@@ -35,7 +35,7 @@ Moralis.Cloud.afterSave("NFTCanceled", async (request) => {
     logger.info("NFT Canceled!")
     //create a new table:
     const ActiveNFT = Moralis.Object.extend("ActiveNFT")
-    const query = new Moralis.query(ActiveNFT)
+    const query = new Moralis.Query(ActiveNFT)
     query.equalTo("marsketplaceAddress", request.object.get("address"))
     query.equalTo("nftAddress", request.object.get("nftAddress"))
     query.equalTo("tokenId", request.object.get("tokenId"))
