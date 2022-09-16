@@ -4,6 +4,8 @@ import styles from "../styles/Home.module.css"
 import mars from "./mars.jpg"
 import { useMoralisQuery } from "react-moralis"
 
+import NFTBox from "../components/NFTBox"
+
 function Home(props) {
   const { data: listedNfts, isFetching: fetchingListedNfts } = useMoralisQuery(
     //table name
@@ -33,6 +35,14 @@ function Home(props) {
             return (
               <div>
                 Price : {price}, NFT address : {nftAddress}, Token ID : {tokenId}, Seller :{seller}
+                <NFTBox
+                  price={price}
+                  nftAddress={nftAddress}
+                  tokenId={tokenId}
+                  marsKetplaceAddress={marsKetplaceAddress}
+                  seller={seller}
+                  key={`${nftAddress}${tokenId}`}
+                />
               </div>
             )
           })
