@@ -11,7 +11,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>About Plot On Mars</h1>
-      <p>Project originated by Anne Chretien and Warren Duberry for their portfolios.</p>
+      <p>Project originated by Anne Chretien for her portfolio.</p>
     </div>
   )
 }
