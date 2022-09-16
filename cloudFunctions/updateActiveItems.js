@@ -14,37 +14,39 @@ Moralis.Cloud.afterSave("NFTListed", async (request) => {
     query.equalTo("tokenId", request.object.get("tokenId"))
     query.equalTo("marsketplaceAddress", request.object.get("address"))
     query.equalTo("seller", request.object.get("seller"))
-    logger.info(`Marsketplace | Query: ${query}`)
-    const alreadyListedNFT = await query.first()
-    console.log(`alreadyListedItem ${JSON.stringify(alreadyListedNFT)}`)
-    if (alreadyListedNFT) {
-      logger.info(`Deleting ${alreadyListedNFT.id}`)
-      await alreadyListedNFT.destroy()
+    logger.info(`Marsketplace | Query: ${JSON.stringify(query)}`)
+    const ListedNFT = await query.first()
+    logger.info(`Listed NFT : ${JSON.stringify(ListedNFT)}`)
+    if (ListedNFT) {
+      logger.info(`Deleting ${JSON.stringify(ListedNFT.id)}`)
+      await ListedNFT.destroy()
       logger.info(
         `Deleted item with tokenId ${request.object.get(
           "tokenId"
         )} at address ${request.object.get("address")} since the listing is being updated. `
       )
     }
-  }
+    //create a new entry in the table:
+    const activeNFT = new ActiveNFT()
+    // set columns in the entry:
+    activeNFT.set("marsketplaceAddress", request.object.get("address"))
+    activeNFT.set("nftAddress", request.object.get("nftAddress"))
+    activeNFT.set("price", request.object.get("price"))
+    activeNFT.set("tokenId", request.object.get("tokenId"))
+    activeNFT.set("seller", request.object.get("seller"))
+    logger.info(
+      `Adding address: ${request.object.get("address")}, TokenId: ${request.object.get(
+        "tokenId"
+      )}}`
+    )
 
-  //create a new entry in the table:
-  const activeNFT = new ActiveNFT()
-  // set columns in the entry:
-  activeNFT.set("marsketplaceAddress", request.object.get("address"))
-  activeNFT.set("nftAddress", request.object.get("nftAddress"))
-  activeNFT.set("price", request.object.get("price"))
-  activeNFT.set("tokenId", request.object.get("tokenId"))
-  activeNFT.set("seller", request.object.get("seller"))
-  logger.info(
-    `Adding address: ${request.object.get("address")}, TokenId: ${request.object.get("tokenId")}}`
-  )
-  logger.info("Saving...")
-  await activeNFT.save()
+    logger.info("Saving...")
+    await activeNFT.save()
+  }
 })
 
 Moralis.Cloud.afterSave("NFTDeleted", async (request) => {
-  const confirmed = request.object.get("confirmed", { useMasterKey: true })
+  const confirmed = request.object.get("confirmed")
   const logger = Moralis.Cloud.getLogger()
   logger.info(`Marsketplace | Object: ${request.object}`)
   if (confirmed) {
@@ -55,9 +57,9 @@ Moralis.Cloud.afterSave("NFTDeleted", async (request) => {
     query.equalTo("marsketplaceAddress", request.object.get("address"))
     query.equalTo("nftAddress", request.object.get("nftAddress"))
     query.equalTo("tokenId", request.object.get("tokenId"))
-    logger.info(`Marsketplace | Query: ${query}`)
+    logger.info(`Marsketplace | Query: ${JSON.stringify(query)}`)
     const deletedNFT = await query.first()
-    logger.info(`Marsketplace | CanceledNFT: ${deletedNFT}`)
+    logger.info(`Marsketplace | CanceledNFT: ${JSON.stringify(deletedNFT)}`)
     if (deletedNFT) {
       await deletedNFT.destroy()
       logger.info(
