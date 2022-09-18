@@ -16,7 +16,7 @@ function Home(props) {
   console.log(listedNfts)
 
   return (
-    <div backgroundImage={mars} height="100vp">
+    <div backgroundimage={mars} height="100vp">
       <Head>
         <title>The MarsKetplace</title>
         <meta name="description" content="NFT MarsKetplace" />
