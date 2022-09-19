@@ -18,12 +18,12 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
 
   async function updateUI() {
     // get tokenURI
-    // try {
-    const tokenuri = await tokenURI()
-    console.log(tokenuri)
-    // } catch (e) {
-    //   console.log(e)
-    // }
+    try {
+      const tokenuri = await tokenURI()
+      console.log(tokenuri)
+    } catch (e) {
+      console.log(e)
+    }
 
     // using image tag from the tokenURI
   }
