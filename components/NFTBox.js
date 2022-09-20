@@ -3,9 +3,14 @@ import { useWeb3Contract, useMoralis } from "react-moralis"
 import nftMarsketplaceAbi from "../constants/NftMarsketplace.json"
 import nftAbi from "../constants/MintOneToken.json"
 import Image from "next/image"
+import { Card } from "web3uikit"
+import { ethers } from "ethers"
+import POM from "./POM1.png"
 
 export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress, seller }) {
   const [imageURI, setImageURI] = useState("")
+  const [tokenName, setTokenName] = useState("")
+  const [tokenDescription, setTokenDescription] = useState("")
   const { isWeb3Enabled } = useMoralis()
 
   const { runContractFunction: getTokenUri } = useWeb3Contract({
@@ -26,10 +31,15 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       //use IPFS gateway to return IPFS files from a normal URL
       const requestURL = tokenUri.replace("ipfs://", "https://ipfs.io/ipfs/")
       const tokenUriResponse = await (await fetch(requestURL)).json()
-      console.log(tokenUriResponse)
-      const imageURI = tokenUriResponse.image
-      const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
+      //console.log(tokenUriResponse)
+      let imageURI = tokenUriResponse.image
+      if (imageURI == "undefined") {
+        imageURI = { POM }
+      }
+      const imageURIURL = imageURI.replace("ipfs://", "https://gateway.ipfs.io/ipfs/")
       setImageURI(imageURIURL)
+      setTokenName(tokenUriResponse.name)
+      setTokenDescription(tokenUriResponse.description)
     }
   }
 
@@ -42,15 +52,26 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
   return (
     <div>
       {imageURI ? (
-        <Image
-          loader={() => {
-            imageURI
-          }}
-          src={imageURI}
-          alt="NFT POM1"
-          height="200"
-          width="200"
-        />
+        <Card
+          className="flex flex-col items-end gap-2 w-1/3 "
+          title={tokenName}
+          description={tokenDescription}
+        >
+          <div className="flex flex-col items-end gap-2 w-1/3 ">
+            <div>#{tokenId}</div>
+            <div className="italic text-sm">Owned by {seller}</div>
+            <Image
+              loader={() => {
+                imageURI
+              }}
+              src={imageURI}
+              alt="NFT POM"
+              height="200"
+              width="200"
+            />
+            <div className="font-bold">{ethers.utils.formatUnits(price, "ether")} ETH</div>
+          </div>
+        </Card>
       ) : (
         <div>Loading..</div>
       )}
