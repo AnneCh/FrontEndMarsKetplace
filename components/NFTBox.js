@@ -33,10 +33,10 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       const tokenUriResponse = await (await fetch(requestURL)).json()
       //console.log(tokenUriResponse)
       let imageURI = tokenUriResponse.image
-      if (imageURI == "undefined") {
+      if (imageURI === "undefined") {
         imageURI = { POM }
       }
-      const imageURIURL = imageURI.replace("ipfs://", "https://gateway.ipfs.io/ipfs/")
+      const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
       setImageURI(imageURIURL)
       setTokenName(tokenUriResponse.name)
       setTokenDescription(tokenUriResponse.description)
@@ -50,27 +50,21 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
   }, [isWeb3Enabled])
 
   return (
-    <div>
+    <div className="flex items-center w-3/3 backdrop-filter backdrop-opacity-0">
       {imageURI ? (
-        <Card
-          className="flex flex-col items-end gap-2 w-1/3 "
-          title={tokenName}
-          description={tokenDescription}
-        >
-          <div className="flex flex-col items-end gap-2 w-1/3 ">
-            <div>#{tokenId}</div>
-            <div className="italic text-sm">Owned by {seller}</div>
-            <Image
-              loader={() => {
-                imageURI
-              }}
-              src={imageURI}
-              alt="NFT POM"
-              height="200"
-              width="200"
-            />
-            <div className="font-bold">{ethers.utils.formatUnits(price, "ether")} ETH</div>
-          </div>
+        <Card title={tokenName} description={tokenDescription} className="items-center">
+          <div>#{tokenId}</div>
+          <div className="italic text-sm">Owned by the wallet :{seller}</div>
+          <Image
+            loader={() => {
+              imageURI
+            }}
+            src={imageURI}
+            alt="NFT POM"
+            height="200"
+            width="200"
+          />
+          <div className="font-bold">{ethers.utils.formatUnits(price, "ether")} ETH</div>
         </Card>
       ) : (
         <div>Loading..</div>

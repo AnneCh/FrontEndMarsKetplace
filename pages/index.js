@@ -21,7 +21,7 @@ function Home(props) {
         <meta name="description" content="NFT MarsKetplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="backdrop-filter backdrop-opacity-0">
+      <div>
         <h1 className="font-bold text-3xl p-3">Own your plot on MARS</h1>
         <h3 className="text-2xl p-3">Here are the current NFTs for sale</h3>
         <div className="flex flex-col items-center gap-2 w-3/3 ">
@@ -33,7 +33,7 @@ function Home(props) {
               console.log(nft.attributes)
               const { price, nftAddress, tokenId, marsKetplaceAddress, seller } = nft.attributes
               return (
-                <div className="flex flex-col items-center ">
+                <div className="flex flex-col items-center">
                   <NFTBox
                     price={price}
                     nftAddress={nftAddress}
