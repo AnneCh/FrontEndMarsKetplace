@@ -1,7 +1,6 @@
 import Head from "next/head"
 import Moralis from "moralis"
 import styles from "../styles/Home.module.css"
-import mars from "./mars.jpg"
 import { useMoralisQuery } from "react-moralis"
 
 import NFTBox from "../components/NFTBox"
@@ -16,37 +15,38 @@ function Home(props) {
   console.log(listedNfts)
 
   return (
-    <div backgroundimage={mars} height="100vp">
+    <div height="100vp" className="bg-mars">
       <Head>
         <title>The MarsKetplace</title>
         <meta name="description" content="NFT MarsKetplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1 className="font-bold text-3xl">Own your plot on MARS</h1>
-      <h3 className="text-2xl">Here are the current NFTs for sale</h3>
-      <div>
-        <p>Display NFT here</p>
-        {fetchingListedNfts ? (
-          <div>Loading...</div>
-        ) : (
-          listedNfts.map((nft) => {
-            console.log(nft.attributes)
-            const { price, nftAddress, tokenId, marsKetplaceAddress, seller } = nft.attributes
-            return (
-              <div>
-                Price : {price}, NFT address : {nftAddress}, Token ID : {tokenId}, Seller :{seller}
-                <NFTBox
-                  price={price}
-                  nftAddress={nftAddress}
-                  tokenId={tokenId}
-                  marsKetplaceAddress={marsKetplaceAddress}
-                  seller={seller}
-                  key={`${nftAddress}${tokenId}`}
-                />
-              </div>
-            )
-          })
-        )}
+      <div className="backdrop-filter backdrop-opacity-0">
+        <h1 className="font-bold text-3xl p-3">Own your plot on MARS</h1>
+        <h3 className="text-2xl p-3">Here are the current NFTs for sale</h3>
+        <div className="flex flex-col items-center gap-2 w-3/3 ">
+          <p>Plot On Mars NFTs for sale</p>
+          {fetchingListedNfts ? (
+            <div>Loading...</div>
+          ) : (
+            listedNfts.map((nft) => {
+              console.log(nft.attributes)
+              const { price, nftAddress, tokenId, marsKetplaceAddress, seller } = nft.attributes
+              return (
+                <div className="flex flex-col items-center ">
+                  <NFTBox
+                    price={price}
+                    nftAddress={nftAddress}
+                    tokenId={tokenId}
+                    marsKetplaceAddress={marsKetplaceAddress}
+                    seller={seller}
+                    key={`${nftAddress}${tokenId}`}
+                  />
+                </div>
+              )
+            })
+          )}
+        </div>
       </div>
     </div>
   )
