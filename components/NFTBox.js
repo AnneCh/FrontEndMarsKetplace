@@ -5,7 +5,9 @@ import nftAbi from "../constants/MintOneToken.json"
 import Image from "next/image"
 import { Card } from "web3uikit"
 import { ethers } from "ethers"
-import POM from "./POM1.png"
+import pom from "./POM1.png"
+
+import styles from "../styles/Home.module.css"
 
 export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress, seller }) {
   const [imageURI, setImageURI] = useState("")
@@ -32,12 +34,15 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       const requestURL = tokenUri.replace("ipfs://", "https://ipfs.io/ipfs/")
       const tokenUriResponse = await (await fetch(requestURL)).json()
       //console.log(tokenUriResponse)
-      let imageURI = tokenUriResponse.image
-      if (imageURI === "undefined") {
-        imageURI = { POM }
-      }
+      const imageURI = tokenUriResponse.image
       const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-      setImageURI(imageURIURL)
+
+      if (imageURIURL != "undefined") {
+        setImageURI(imageURIURL)
+      } else {
+        setImageURI(pom)
+      }
+
       setTokenName(tokenUriResponse.name)
       setTokenDescription(tokenUriResponse.description)
     }
@@ -50,9 +55,9 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
   }, [isWeb3Enabled])
 
   return (
-    <div className="flex items-center w-3/3 backdrop-filter backdrop-opacity-0">
+    <div className={styles.card}>
       {imageURI ? (
-        <Card title={tokenName} description={tokenDescription} className="items-center">
+        <Card title={tokenName} description={tokenDescription}>
           <div>#{tokenId}</div>
           <div className="italic text-sm">Owned by the wallet :{seller}</div>
           <Image
@@ -65,6 +70,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
             width="200"
           />
           <div className="font-bold">{ethers.utils.formatUnits(price, "ether")} ETH</div>
+          <button className="font-bold text-m">Buy it</button>
         </Card>
       ) : (
         <div>Loading..</div>

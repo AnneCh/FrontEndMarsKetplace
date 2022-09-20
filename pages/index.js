@@ -1,8 +1,6 @@
 import Head from "next/head"
 import Moralis from "moralis"
-import styles from "../styles/Home.module.css"
 import { useMoralisQuery } from "react-moralis"
-
 import NFTBox from "../components/NFTBox"
 
 function Home(props) {
@@ -15,17 +13,16 @@ function Home(props) {
   console.log(listedNfts)
 
   return (
-    <div height="100vp" className="bg-mars">
+    <div height="100vp">
       <Head>
         <title>The MarsKetplace</title>
         <meta name="description" content="NFT MarsKetplace" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <h1 className="font-bold text-3xl p-3">Own your plot on MARS</h1>
-        <h3 className="text-2xl p-3">Here are the current NFTs for sale</h3>
+        <h1 className="font-bold text-3xl p-3 ">Own your plot on MARS</h1>
         <div className="flex flex-col items-center gap-2 w-3/3 ">
-          <p>Plot On Mars NFTs for sale</p>
+          <p className="font-bold text-3xl">Plot On Mars NFTs for sale</p>
           {fetchingListedNfts ? (
             <div>Loading...</div>
           ) : (
