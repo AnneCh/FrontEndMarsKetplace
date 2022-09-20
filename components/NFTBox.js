@@ -11,7 +11,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
   const { runContractFunction: getTokenUri } = useWeb3Contract({
     abi: nftAbi,
     contractAddress: nftAddress,
-    functionName: "tokenUri",
+    functionName: "tokenURI",
     params: {
       tokenId: tokenId,
     },
@@ -19,16 +19,14 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
 
   async function updateUI() {
     // get tokenUri
-    // try {
     const tokenUri = await getTokenUri()
     console.log(`The token uri is: ${tokenUri}`)
-    // } catch (e) {
-    // console.log(e)
-    // }
+
     if (tokenUri) {
       //use IPFS gateway to return IPFS files from a normal URL
       const requestURL = tokenUri.replace("ipfs://", "https://ipfs.io/ipfs/")
       const tokenUriResponse = await (await fetch(requestURL)).json()
+      console.log(tokenUriResponse)
       const imageURI = tokenUriResponse.image
       const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
       setImageURI(imageURIURL)
