@@ -50,7 +50,7 @@ Moralis.Cloud.afterSave("NFTDeleted", async (request) => {
   const logger = Moralis.Cloud.getLogger()
   logger.info(`Marsketplace | Object: ${request.object}`)
   if (confirmed) {
-    logger.info("NFT Deleted!")
+    logger.info("NFT removed from the ActiveNFt list!")
     //create a new table:
     const ActiveNFT = Moralis.Object.extend("ActiveNFT")
     const query = new Moralis.Query(ActiveNFT)
