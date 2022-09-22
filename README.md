@@ -16,10 +16,17 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+- get your own data in the .env file. you'll need to create an account on Moralis for the front-end, Pinata(optional) and Etherscan on the back-end
 - go to folder with backend -> run `yarn hardhat node` to start the local hardhat testnet and deploy the contracts
   (- if necessary, delete the content of `networkMappings.json`, leaving only `{}` in it, go back to back-end folder and run `yarn hardhat deploy 99-update-front-end`)
-- go back to front-end folder (`cd ..` + `cd FrontEndMarsKetplace`) and run `yarn dev`
-- run `yarn run moralis:sync` <= the connection to Hardhat has now begun
+- go back to front-end folder (`cd ..` + `cd FrontEndMarsKetplace`)
+- run `yarn moralis:sync` <= the connection to Hardhat has now begun
+- run `yarn moralis:cloud` to sync the cloud functions
+- run `yarn dev`, open your browser and type "localhost:3000" in the address bar
+
+- back to the backend folder, run `yarn hardhat run scripts/mint-and-list.js --network localhost`
+
+=> the front-end should now display the newly minted and listed NFT
 
 <!-- 
 First, run the development server:
