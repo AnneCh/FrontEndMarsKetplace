@@ -16,7 +16,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-- get your own data in the .env file. you'll need to create an account on Moralis for the front-end, Pinata(optional) and Etherscan on the back-end
+- get your own data in the .env file. you'll need to create an account on Moralis for the front-end, Pinata(optional) and Etherscan on the back-end (follow their instructions)
 - go to folder with backend -> run `yarn hardhat node` to start the local hardhat testnet and deploy the contracts
   (- if necessary, delete the content of `networkMappings.json`, leaving only `{}` in it, go back to back-end folder and run `yarn hardhat deploy 99-update-front-end`)
 - go back to front-end folder (`cd ..` + `cd FrontEndMarsKetplace`)
