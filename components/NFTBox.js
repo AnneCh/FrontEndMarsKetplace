@@ -35,14 +35,14 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       //use IPFS gateway to return IPFS files from a normal URL
       const requestURL = tokenUri.replace("ipfs://", "https://ipfs.io/ipfs/")
       const tokenUriResponse = await (await fetch(requestURL)).json()
-      //console.log(tokenUriResponse)
+      console.log(tokenUriResponse)
       const imageURI = tokenUriResponse.image
       const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
 
-      if (imageURIURL != "undefined") {
-        setImageURI(imageURIURL)
-      } else {
+      if (imageURIURL === "undefined") {
         setImageURI(pom)
+      } else {
+        setImageURI(imageURIURL)
       }
 
       setTokenName(tokenUriResponse.name)
