@@ -32,12 +32,12 @@ function Home(props) {
               return (
                 <div className="flex flex-col items-center">
                   <NFTBox
+                    key={tokenId}
                     price={price}
                     nftAddress={nftAddress}
                     tokenId={tokenId}
                     marsKetplaceAddress={marsKetplaceAddress}
                     seller={seller}
-                    key={`${nftAddress}${tokenId}`}
                   />
                 </div>
               )

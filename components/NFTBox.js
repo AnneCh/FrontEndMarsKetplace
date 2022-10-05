@@ -36,18 +36,18 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       const requestURL = tokenUri.replace("ipfs://", "https://ipfs.io/ipfs/")
       const tokenUriResponse = await (await fetch(requestURL)).json()
       console.log(tokenUriResponse)
-      const imageURIURL = tokenUriResponse.image
-      console.log(imageURIURL)
-      console.log(tokenUriResponse.name)
-      console.log(tokenUriResponse.description)
+      console.log("------")
+      const imageURI = tokenUriResponse.image
+      console.log(`the image is "${imageURI}"`)
+      console.log(`the name is '${tokenUriResponse.name}'`)
+      console.log(`the description is '${tokenUriResponse.description}'`)
       // const imageURIURL = imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
-
-      if (imageURIURL === "undefined") {
-        setImageURI(pom)
-      } else {
-        setImageURI(imageURIURL)
-      }
-
+      // if (imageURIURL === "undefined") {
+      //   setImageURI(pom)
+      // } else {
+      //   setImageURI(imageURIURL)
+      // }
+      setImageURI(imageURI)
       setTokenName(tokenUriResponse.name)
       setTokenDescription(tokenUriResponse.description)
     }
@@ -64,7 +64,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       {imageURI ? (
         <Card title={tokenName} description={tokenDescription}>
           <div>#{tokenId}</div>
-          <div className="italic text-sm">Owned by the wallet :{seller}</div>
+          <div className="italic text-sm">Owned by the wallet:{seller}</div>
           <Image
             loader={() => {
               imageURI
