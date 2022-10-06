@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "magic-sdk": "^9.0.0",
-    "moralis": "^2.2.0",
+    "moralis": "^2.6.3",
     "moralis-admin-cli": "^2.1.16",
     "moralis-v1": "^1.5.11",
     "next": "12.2.5",
