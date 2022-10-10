@@ -7,8 +7,6 @@ import nft3Abi from "../constants/MintTokenThree.json"
 import Image from "next/image"
 import { Card } from "web3uikit"
 import { ethers } from "ethers"
-import pom from "./POM1.png"
-
 import styles from "../styles/Home.module.css"
 
 export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress, seller }) {
