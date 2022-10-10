@@ -38,7 +38,7 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
       const tokenUriResponse = await (await fetch(requestURL)).json()
       console.log(tokenUriResponse)
       console.log("------")
-      const imageURI = await tokenUriResponse.image
+      const imageURI = tokenUriResponse.image
       console.log(`the image is "${imageURI}"`)
       console.log(`the name is '${tokenUriResponse.name}'`)
       console.log(`the description is '${tokenUriResponse.description}'`)
@@ -58,20 +58,20 @@ export default function NFTBox({ price, nftAddress, tokenId, marsKetplaceAddress
   return (
     <div className={styles.card}>
       {imageURI ? (
-        <Card title={tokenName} description={tokenDescription}>
-          <div>#{tokenId}</div>
-          <div className="italic text-sm">Owned by the wallet:{seller}</div>
-          <Image
-            loader={() => {
-              imageURI
-            }}
-            src={imageURI}
-            alt="NFT POM"
-            height="200"
-            width="200"
-          />
+        <Card>
+          <h2>
+            {tokenName} - #{tokenId}
+          </h2>
+          <div className="italic text-sm">
+            Owned by the wallet: <b>{seller} </b>
+          </div>
+          <br />
+          <a href={imageURI} target="blank">
+            <img src={imageURI} alt="NFT POM" />
+          </a>
+          <div>{tokenDescription}</div>
+          <button>Buy it</button>
           <div className="font-bold">{ethers.utils.formatUnits(price, "ether")} ETH</div>
-          <button className="font-bold text-m">Buy it</button>
         </Card>
       ) : (
         <div>Loading..</div>
